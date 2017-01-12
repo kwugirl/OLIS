@@ -24,9 +24,6 @@ for i in range(0,len(sum1)-1):
 i = 0
 j = 0
 
-print billing
-exit()
-
 #part 2: look at bill pages in OLIS. grab short summary and long summary.
 #put bill number, short summary, and long summary into billsbillsbills.csv.
 for i in range(0,len(billing)-1):
@@ -49,11 +46,7 @@ for i in range(0,len(billing)-1):
 	with open('billsbillsbills.csv', 'a') as csvfile:
 		spamwriter = csv.writer(csvfile, delimiter=',')
 		spamwriter.writerow(billinfo)
-	
-	j += 1
-	
-	if j > 10:
-		exit()
+
 
 #print soup.prettify()
 
