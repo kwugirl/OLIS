@@ -115,3 +115,9 @@ for j in range(0,len(billnumsnospacesfull)):
 		spamwriter.writerow(billinfo)
 	
 	time.sleep(1)
+
+#Problems to solve, still:
+#1. Putting on the web as an app.
+#2. Importing BeautifulSoup and other libraries into Heroku.
+#3. Exporting the product from Heroku as a CSV.
+#4. UI for date input.
