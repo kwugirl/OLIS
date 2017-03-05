@@ -17,7 +17,7 @@ def newlinefile(input_file1):
 def newlinenospacesfile(input_file1):
     input1 = open(input_file1, 'r')
     input1 = input1.read()
-    input1 = input1.replace(" ","")
+    input1 = input1.replace(" ", "")
     input1 = input1.split("\n")
     return input1
 
@@ -39,7 +39,7 @@ def getsoup(theURL):
     return BeautifulSoup(web_page, "lxml")
 
 
-def getbills(billslist,soup):
+def getbills(billslist, soup):
     newbills = soup.find_all("a")
     billslist.extend(newbills)
     return billslist
@@ -72,7 +72,7 @@ amendmentlist = []
 amendment_dict = {}
 
 #generate the list of amendments and the dictionary.
-for i in range(1,len(amendmentdataset)):
+for i in range(1, len(amendmentdataset)):
     amendmentname = str(amendmentdataset[i][0]) + str(amendmentdataset[i][1])
     amendmentlist.append(amendmentname)
     amendment_dict[amendmentname] = Amendment()
@@ -91,7 +91,7 @@ for i in range(1,len(amendmentdataset)):
 
 #print soup.prettify()
 
-for i in range(0,len(tbillslist)):
+for i in range(0, len(tbillslist)):
     time.sleep(1)
 
     billnum = tbillslist[i]
@@ -103,7 +103,7 @@ for i in range(0,len(tbillslist)):
 
     if len(billtr) > 0:
 
-        for j in range(1,len(billtr)):
+        for j in range(1, len(billtr)):
 
             billtr[j].i.decompose()
             billtd = billtr[j].find_all("td")
