@@ -4,7 +4,7 @@ import csv
 import time
 
 
-def newlinenospacesfile(input_file1):
+def new_line_no_spaces_file(input_file1):
     input1 = open(input_file1, 'r')
     input1 = input1.read()
     input1 = input1.replace(" ", "")
@@ -12,7 +12,7 @@ def newlinenospacesfile(input_file1):
     return input1
 
 
-def getsoup(theURL):
+def get_soup(theURL):
     web_page = urllib2.urlopen(theURL)
     return BeautifulSoup(web_page, "lxml")
 
@@ -30,7 +30,7 @@ class Amendment:
 #import the tracked bills.
 tbills = 'trackedbills.txt'
 
-tbillslist = newlinenospacesfile(tbills)
+tbillslist = new_line_no_spaces_file(tbills)
 
 if "" in tbillslist:
     tbillslist.remove("")
@@ -69,7 +69,7 @@ for i in range(0, len(tbillslist)):
     billnum = tbillslist[i]
     billURL = "https://olis.leg.state.or.us/liz/2017R1/Measures/ProposedAmendments/" + billnum
 
-    thesoup = getsoup(billURL)
+    thesoup = get_soup(billURL)
 
     billtr = thesoup.find_all("tr")
 
