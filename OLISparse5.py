@@ -33,14 +33,9 @@ if "" in tracked_bills_list:
 r = csv.reader(open('amendment_dataset.csv'))
 amendment_dataset = [l for l in r]
 
-# create blank list for amendment_names
-amendment_list = []
 amendment_dict = {}
-
-# generate the list of amendments and the dictionary.
 for amendment in amendment_dataset:
     amendment_name = str(amendment[0]) + str(amendment[1])
-    amendment_list.append(amendment_name)
     amendment_dict[amendment_name] = Amendment()
     amendment_dict[amendment_name].bill_number = amendment[0]
     amendment_dict[amendment_name].amendment_number = amendment[1]
@@ -82,7 +77,7 @@ for i in range(0, len(tracked_bills_list)):
             test_name = str(bill_num) + str(amendment_num)
             x = 0
 
-            if test_name not in amendment_list:
+            if test_name not in amendment_dict.keys():
                 amendment_dict[test_name] = Amendment()
                 amendment_dict[test_name].bill_number = bill_num
                 amendment_dict[test_name].amendment_number = amendment_num
