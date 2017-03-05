@@ -14,20 +14,18 @@ def get_soup(theURL):
 
 
 class Amendment:
-    billnumber = ""
-    amendmentnumber = ""
+    bill_number = ""
+    amendment_number = ""
     amendmentURL = ""
     committee = ""
-    postdate = ""
-    modifydate = ""
-    mostrecentchange = ""
+    post_date = ""
+    modify_date = ""
+    most_recent_change = ""
 
 
 # import the tracked bills.
 tbills = 'trackedbills.txt'
-
 tbillslist = new_line_no_spaces_file(tbills)
-
 if "" in tbillslist:
     tbillslist.remove("")
 
@@ -44,13 +42,13 @@ for i in range(1, len(amendmentdataset)):
     amendmentname = str(amendmentdataset[i][0]) + str(amendmentdataset[i][1])
     amendmentlist.append(amendmentname)
     amendment_dict[amendmentname] = Amendment()
-    amendment_dict[amendmentname].billnumber = amendmentdataset[i][0]
-    amendment_dict[amendmentname].amendmentnumber = amendmentdataset[i][1]
+    amendment_dict[amendmentname].bill_number = amendmentdataset[i][0]
+    amendment_dict[amendmentname].amendment_number = amendmentdataset[i][1]
     amendment_dict[amendmentname].committee = amendmentdataset[i][2]
     amendment_dict[amendmentname].status = amendmentdataset[i][3]
-    amendment_dict[amendmentname].postdate = amendmentdataset[i][4]
-    amendment_dict[amendmentname].modifydate = amendmentdataset[i][5]
-    amendment_dict[amendmentname].mostrecentchange = amendmentdataset[i][6]
+    amendment_dict[amendmentname].post_date = amendmentdataset[i][4]
+    amendment_dict[amendmentname].modify_date = amendmentdataset[i][5]
+    amendment_dict[amendmentname].most_recent_change = amendmentdataset[i][6]
     amendment_dict[amendmentname].amendmentURL = amendmentdataset[i][7]
 
 # billnum = "HB2204"
@@ -80,38 +78,38 @@ for i in range(0, len(tbillslist)):
             amendmentURL = billtd[0].find("a").get('href')
             committee = billtd[2].find("a").string
             amendmentstatus = billtd[3].string
-            postdate = billtd[4].string
+            post_date = billtd[4].string
             testname = str(billnum) + str(amendmentnum)
             x = 0
 
             if testname not in amendmentlist:
                 amendment_dict[testname] = Amendment()
-                amendment_dict[testname].billnumber = billnum
-                amendment_dict[testname].amendmentnumber = amendmentnum
+                amendment_dict[testname].bill_number = billnum
+                amendment_dict[testname].amendment_number = amendmentnum
                 amendment_dict[testname].committee = '"' + committee + '"'
                 amendment_dict[testname].status = amendmentstatus
-                amendment_dict[testname].postdate = postdate
-                amendment_dict[testname].modifydate = time.strftime("%m/%d/%Y")
-                amendment_dict[testname].mostrecentchange = "New Amendment"
+                amendment_dict[testname].post_date = post_date
+                amendment_dict[testname].modify_date = time.strftime("%m/%d/%Y")
+                amendment_dict[testname].most_recent_change = "New Amendment"
                 amendment_dict[testname].amendmentURL = amendmentURL
                 x = 1
             else:
                 if amendmentstatus != amendment_dict[testname].status:
-                    amendment_dict[testname].modifydate = time.strftime("%m/%d/%Y")
+                    amendment_dict[testname].modify_date = time.strftime("%m/%d/%Y")
                     amendment_dict[testname].status = amendmentstatus
-                    amendment_dict[testname].mostrecentchange = "Change in Status"
+                    amendment_dict[testname].most_recent_change = "Change in Status"
                     x = 1
 
             if x == 1:
                 amendmentline = []
 
-                amendmentline.append(amendment_dict[testname].billnumber)
-                amendmentline.append(amendment_dict[testname].amendmentnumber)
+                amendmentline.append(amendment_dict[testname].bill_number)
+                amendmentline.append(amendment_dict[testname].amendment_number)
                 amendmentline.append(amendment_dict[testname].committee)
                 amendmentline.append(amendment_dict[testname].status)
-                amendmentline.append(amendment_dict[testname].postdate)
-                amendmentline.append(amendment_dict[testname].modifydate)
-                amendmentline.append(amendment_dict[testname].mostrecentchange)
+                amendmentline.append(amendment_dict[testname].post_date)
+                amendmentline.append(amendment_dict[testname].modify_date)
+                amendmentline.append(amendment_dict[testname].most_recent_change)
                 amendmentline.append(amendment_dict[testname].amendmentURL)
 
                 # write that list to the CSV file.
