@@ -38,18 +38,18 @@ amendment_list = []
 amendment_dict = {}
 
 # generate the list of amendments and the dictionary.
-for i in range(1, len(amendment_dataset)):
-    amendment_name = str(amendment_dataset[i][0]) + str(amendment_dataset[i][1])
+for amendment in amendment_dataset:
+    amendment_name = str(amendment[0]) + str(amendment[1])
     amendment_list.append(amendment_name)
     amendment_dict[amendment_name] = Amendment()
-    amendment_dict[amendment_name].bill_number = amendment_dataset[i][0]
-    amendment_dict[amendment_name].amendment_number = amendment_dataset[i][1]
-    amendment_dict[amendment_name].committee = amendment_dataset[i][2]
-    amendment_dict[amendment_name].status = amendment_dataset[i][3]
-    amendment_dict[amendment_name].post_date = amendment_dataset[i][4]
-    amendment_dict[amendment_name].modify_date = amendment_dataset[i][5]
-    amendment_dict[amendment_name].most_recent_change = amendment_dataset[i][6]
-    amendment_dict[amendment_name].amendmentURL = amendment_dataset[i][7]
+    amendment_dict[amendment_name].bill_number = amendment[0]
+    amendment_dict[amendment_name].amendment_number = amendment[1]
+    amendment_dict[amendment_name].committee = amendment[2]
+    amendment_dict[amendment_name].status = amendment[3]
+    amendment_dict[amendment_name].post_date = amendment[4]
+    amendment_dict[amendment_name].modify_date = amendment[5]
+    amendment_dict[amendment_name].most_recent_change = amendment[6]
+    amendment_dict[amendment_name].amendmentURL = amendment[7]
 
 # bill_num = "HB2204"
 # billHTML = open('sampleHTML.html','r')
