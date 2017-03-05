@@ -16,12 +16,16 @@ def get_soup(theURL):
 class Amendment:
     bill_number = ""
     amendment_number = ""
-    amendmentURL = ""
     committee = ""
     status = ""
     post_date = ""
     modify_date = ""
     most_recent_change = ""
+    amendmentURL = ""
+
+    def all_attributes(self):
+        return [self.bill_number, self.amendment_number, self.committee, self.status,
+                self.post_date, self.modify_date, self.most_recent_change, self.amendmentURL]
 
 
 # import the tracked bills.
@@ -94,18 +98,7 @@ for bill_num in tracked_bills:
             new_or_updated_amendment = True
 
         if new_or_updated_amendment:
-            amendment_line = []
-
-            amendment_line.append(amendments[name].bill_number)
-            amendment_line.append(amendments[name].amendment_number)
-            amendment_line.append(amendments[name].committee)
-            amendment_line.append(amendments[name].status)
-            amendment_line.append(amendments[name].post_date)
-            amendment_line.append(amendments[name].modify_date)
-            amendment_line.append(amendments[name].most_recent_change)
-            amendment_line.append(amendments[name].amendmentURL)
-
             # write that list to the CSV file.
             with open('amendment_dataset.csv', 'a') as csvfile:
                 amendment_line_writer = csv.writer(csvfile, delimiter=',')
-                amendment_line_writer.writerow(amendment_line)
+                amendment_line_writer.writerow(amendments[name].attributes())
