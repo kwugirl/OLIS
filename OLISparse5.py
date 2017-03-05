@@ -4,12 +4,8 @@ import csv
 import time
 
 
-def new_line_no_spaces_file(input_file1):
-    input1 = open(input_file1, 'r')
-    input1 = input1.read()
-    input1 = input1.replace(" ", "")
-    input1 = input1.split("\n")
-    return input1
+def new_line_no_spaces_file(input_file):
+    return open(input_file, 'r').read().replace(" ", "").split("\n")
 
 
 def get_soup(theURL):
