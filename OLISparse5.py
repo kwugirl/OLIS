@@ -6,12 +6,13 @@ from datetime import date
 import datetime
 from time import sleep
 
-#Define some functions
+
 def newlinefile(input_file1):
     input1 = open(input_file1, 'r')
     input1 = input1.read()
     input1 = input1.split("\n")
     return input1
+
 
 def newlinenospacesfile(input_file1):
     input1 = open(input_file1, 'r')
@@ -19,6 +20,7 @@ def newlinenospacesfile(input_file1):
     input1 = input1.replace(" ","")
     input1 = input1.split("\n")
     return input1
+
 
 def datemaker(dateinput):
     datemonth = str(dateinput.month)
@@ -31,16 +33,17 @@ def datemaker(dateinput):
     datestring = datemonth + "%2F" + dateday + "%2F" + dateyear
     return datestring
 
+
 def getsoup(theURL):
     web_page = urllib2.urlopen(theURL)
     return BeautifulSoup(web_page, "lxml")
+
 
 def getbills(billslist,soup):
     newbills = soup.find_all("a")
     billslist.extend(newbills)
     return billslist
 
-#create a new class/object
 
 class Amendment:
     billnumber = ""
