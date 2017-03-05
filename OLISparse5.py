@@ -56,57 +56,56 @@ for i in range(0, len(tracked_bills)):
 
     bill_num = tracked_bills[i]
     billURL = "https://olis.leg.state.or.us/liz/2017R1/Measures/ProposedAmendments/" + bill_num
-
     the_soup = get_soup(billURL)
 
     bill_tr = the_soup.find_all("tr")
+    if len(bill_tr) == 0:
+        continue
 
-    if len(bill_tr) > 0:
+    for j in range(1, len(bill_tr)):
 
-        for j in range(1, len(bill_tr)):
+        bill_tr[j].i.decompose()
+        bill_td = bill_tr[j].find_all("td")
 
-            bill_tr[j].i.decompose()
-            bill_td = bill_tr[j].find_all("td")
+        amendment_num = bill_td[0].find("a").string
+        amendmentURL = bill_td[0].find("a").get('href')
+        committee = bill_td[2].find("a").string
+        amendment_status = bill_td[3].string
+        post_date = bill_td[4].string
+        name = str(bill_num) + str(amendment_num)
+        new_or_updated_amendment = False
 
-            amendment_num = bill_td[0].find("a").string
-            amendmentURL = bill_td[0].find("a").get('href')
-            committee = bill_td[2].find("a").string
-            amendment_status = bill_td[3].string
-            post_date = bill_td[4].string
-            name = str(bill_num) + str(amendment_num)
-            new_or_updated_amendment = False
+        # update amendment attributes if needed
+        if name not in amendments.keys():
+            amendments[name] = Amendment()
+            amendments[name].bill_number = bill_num
+            amendments[name].amendment_number = amendment_num
+            amendments[name].committee = '"' + committee + '"'
+            amendments[name].status = amendment_status
+            amendments[name].post_date = post_date
+            amendments[name].modify_date = time.strftime("%m/%d/%Y")
+            amendments[name].most_recent_change = "New Amendment"
+            amendments[name].amendmentURL = amendmentURL
+            new_or_updated_amendment = True
+        elif amendment_status != amendments[name].status:
+            amendments[name].modify_date = time.strftime("%m/%d/%Y")
+            amendments[name].status = amendment_status
+            amendments[name].most_recent_change = "Change in Status"
+            new_or_updated_amendment = True
 
-            # update amendment attributes if needed
-            if name not in amendments.keys():
-                amendments[name] = Amendment()
-                amendments[name].bill_number = bill_num
-                amendments[name].amendment_number = amendment_num
-                amendments[name].committee = '"' + committee + '"'
-                amendments[name].status = amendment_status
-                amendments[name].post_date = post_date
-                amendments[name].modify_date = time.strftime("%m/%d/%Y")
-                amendments[name].most_recent_change = "New Amendment"
-                amendments[name].amendmentURL = amendmentURL
-                new_or_updated_amendment = True
-            elif amendment_status != amendments[name].status:
-                amendments[name].modify_date = time.strftime("%m/%d/%Y")
-                amendments[name].status = amendment_status
-                amendments[name].most_recent_change = "Change in Status"
-                new_or_updated_amendment = True
+        if new_or_updated_amendment:
+            amendment_line = []
 
-            if new_or_updated_amendment:
-                amendment_line = []
+            amendment_line.append(amendments[name].bill_number)
+            amendment_line.append(amendments[name].amendment_number)
+            amendment_line.append(amendments[name].committee)
+            amendment_line.append(amendments[name].status)
+            amendment_line.append(amendments[name].post_date)
+            amendment_line.append(amendments[name].modify_date)
+            amendment_line.append(amendments[name].most_recent_change)
+            amendment_line.append(amendments[name].amendmentURL)
 
-                amendment_line.append(amendments[name].bill_number)
-                amendment_line.append(amendments[name].amendment_number)
-                amendment_line.append(amendments[name].committee)
-                amendment_line.append(amendments[name].status)
-                amendment_line.append(amendments[name].post_date)
-                amendment_line.append(amendments[name].modify_date)
-                amendment_line.append(amendments[name].most_recent_change)
-                amendment_line.append(amendments[name].amendmentURL)
-
-                # write that list to the CSV file.
-                with open('amendment_dataset.csv', 'a') as csvfile:
-                    amendment_line_writer = csv.writer(csvfile, delimiter=',')
-                    amendment_line_writer.writerow(amendment_line)
+            # write that list to the CSV file.
+            with open('amendment_dataset.csv', 'a') as csvfile:
+                amendment_line_writer = csv.writer(csvfile, delimiter=',')
+                amendment_line_writer.writerow(amendment_line)
