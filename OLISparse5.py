@@ -23,7 +23,7 @@ class Amendment:
     mostrecentchange = ""
 
 
-#import the tracked bills.
+# import the tracked bills.
 tbills = 'trackedbills.txt'
 
 tbillslist = new_line_no_spaces_file(tbills)
@@ -31,15 +31,15 @@ tbillslist = new_line_no_spaces_file(tbills)
 if "" in tbillslist:
     tbillslist.remove("")
 
-#import amendment dataset.
+# import amendment dataset.
 r = csv.reader(open('amendmentdataset.csv'))
 amendmentdataset = [l for l in r]
 
-#create blank list for amendmentnames
+# create blank list for amendmentnames
 amendmentlist = []
 amendment_dict = {}
 
-#generate the list of amendments and the dictionary.
+# generate the list of amendments and the dictionary.
 for i in range(1, len(amendmentdataset)):
     amendmentname = str(amendmentdataset[i][0]) + str(amendmentdataset[i][1])
     amendmentlist.append(amendmentname)
@@ -53,11 +53,11 @@ for i in range(1, len(amendmentdataset)):
     amendment_dict[amendmentname].mostrecentchange = amendmentdataset[i][6]
     amendment_dict[amendmentname].amendmentURL = amendmentdataset[i][7]
 
-#billnum = "HB2204"
-#billHTML = open('sampleHTML.html','r')
-#thesoup = BeautifulSoup(billHTML,"lxml")
+# billnum = "HB2204"
+# billHTML = open('sampleHTML.html','r')
+# thesoup = BeautifulSoup(billHTML,"lxml")
 
-#print soup.prettify()
+# print soup.prettify()
 
 for i in range(0, len(tbillslist)):
     time.sleep(1)
@@ -114,7 +114,7 @@ for i in range(0, len(tbillslist)):
                 amendmentline.append(amendment_dict[testname].mostrecentchange)
                 amendmentline.append(amendment_dict[testname].amendmentURL)
 
-                #write that list to the CSV file.
+                # write that list to the CSV file.
                 with open('amendmentdataset.csv', 'a') as csvfile:
                     amendmentlinewriter = csv.writer(csvfile, delimiter=',')
                     amendmentlinewriter.writerow(amendmentline)
