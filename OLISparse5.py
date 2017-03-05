@@ -18,6 +18,7 @@ class Amendment:
     amendment_number = ""
     amendmentURL = ""
     committee = ""
+    status = ""
     post_date = ""
     modify_date = ""
     most_recent_change = ""
