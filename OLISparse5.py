@@ -24,10 +24,9 @@ class Amendment:
 
 
 # import the tracked bills.
-tracked_bills = 'trackedbills.txt'
-tracked_bills_list = new_line_no_spaces_file(tracked_bills)
-if "" in tracked_bills_list:
-    tracked_bills_list.remove("")
+tracked_bills = new_line_no_spaces_file('trackedbills.txt')
+if "" in tracked_bills:
+    tracked_bills.remove("")
 
 # import amendment dataset.
 r = csv.reader(open('amendment_dataset.csv'))
@@ -52,10 +51,10 @@ for amendment in amendment_dataset:
 
 # print soup.prettify()
 
-for i in range(0, len(tracked_bills_list)):
+for i in range(0, len(tracked_bills)):
     time.sleep(1)
 
-    bill_num = tracked_bills_list[i]
+    bill_num = tracked_bills[i]
     billURL = "https://olis.leg.state.or.us/liz/2017R1/Measures/ProposedAmendments/" + bill_num
 
     the_soup = get_soup(billURL)
