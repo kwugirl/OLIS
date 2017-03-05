@@ -73,38 +73,38 @@ for i in range(0, len(tracked_bills)):
             committee = bill_td[2].find("a").string
             amendment_status = bill_td[3].string
             post_date = bill_td[4].string
-            test_name = str(bill_num) + str(amendment_num)
+            name = str(bill_num) + str(amendment_num)
             x = 0
 
-            if test_name not in amendments.keys():
-                amendments[test_name] = Amendment()
-                amendments[test_name].bill_number = bill_num
-                amendments[test_name].amendment_number = amendment_num
-                amendments[test_name].committee = '"' + committee + '"'
-                amendments[test_name].status = amendment_status
-                amendments[test_name].post_date = post_date
-                amendments[test_name].modify_date = time.strftime("%m/%d/%Y")
-                amendments[test_name].most_recent_change = "New Amendment"
-                amendments[test_name].amendmentURL = amendmentURL
+            # update amendment attributes if needed
+            if name not in amendments.keys():
+                amendments[name] = Amendment()
+                amendments[name].bill_number = bill_num
+                amendments[name].amendment_number = amendment_num
+                amendments[name].committee = '"' + committee + '"'
+                amendments[name].status = amendment_status
+                amendments[name].post_date = post_date
+                amendments[name].modify_date = time.strftime("%m/%d/%Y")
+                amendments[name].most_recent_change = "New Amendment"
+                amendments[name].amendmentURL = amendmentURL
                 x = 1
-            else:
-                if amendment_status != amendments[test_name].status:
-                    amendments[test_name].modify_date = time.strftime("%m/%d/%Y")
-                    amendments[test_name].status = amendment_status
-                    amendments[test_name].most_recent_change = "Change in Status"
-                    x = 1
+            elif amendment_status != amendments[name].status:
+                amendments[name].modify_date = time.strftime("%m/%d/%Y")
+                amendments[name].status = amendment_status
+                amendments[name].most_recent_change = "Change in Status"
+                x = 1
 
             if x == 1:
                 amendment_line = []
 
-                amendment_line.append(amendments[test_name].bill_number)
-                amendment_line.append(amendments[test_name].amendment_number)
-                amendment_line.append(amendments[test_name].committee)
-                amendment_line.append(amendments[test_name].status)
-                amendment_line.append(amendments[test_name].post_date)
-                amendment_line.append(amendments[test_name].modify_date)
-                amendment_line.append(amendments[test_name].most_recent_change)
-                amendment_line.append(amendments[test_name].amendmentURL)
+                amendment_line.append(amendments[name].bill_number)
+                amendment_line.append(amendments[name].amendment_number)
+                amendment_line.append(amendments[name].committee)
+                amendment_line.append(amendments[name].status)
+                amendment_line.append(amendments[name].post_date)
+                amendment_line.append(amendments[name].modify_date)
+                amendment_line.append(amendments[name].most_recent_change)
+                amendment_line.append(amendments[name].amendmentURL)
 
                 # write that list to the CSV file.
                 with open('amendment_dataset.csv', 'a') as csvfile:
