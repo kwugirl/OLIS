@@ -74,7 +74,7 @@ for i in range(0, len(tracked_bills)):
             amendment_status = bill_td[3].string
             post_date = bill_td[4].string
             name = str(bill_num) + str(amendment_num)
-            x = 0
+            new_or_updated_amendment = False
 
             # update amendment attributes if needed
             if name not in amendments.keys():
@@ -87,14 +87,14 @@ for i in range(0, len(tracked_bills)):
                 amendments[name].modify_date = time.strftime("%m/%d/%Y")
                 amendments[name].most_recent_change = "New Amendment"
                 amendments[name].amendmentURL = amendmentURL
-                x = 1
+                new_or_updated_amendment = True
             elif amendment_status != amendments[name].status:
                 amendments[name].modify_date = time.strftime("%m/%d/%Y")
                 amendments[name].status = amendment_status
                 amendments[name].most_recent_change = "Change in Status"
-                x = 1
+                new_or_updated_amendment = True
 
-            if x == 1:
+            if new_or_updated_amendment:
                 amendment_line = []
 
                 amendment_line.append(amendments[name].bill_number)
