@@ -18,7 +18,7 @@ def newlinenospacesfile(input_file1):
 	input1 = input1.read()
 	input1 = input1.replace(" ","")
 	input1 = input1.split("\n")
-	return input1	
+	return input1
 
 def datemaker(dateinput):
 	datemonth = str(dateinput.month)
